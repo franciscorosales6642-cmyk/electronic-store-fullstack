@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin - Productos</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    input { padding: 8px; margin: 4px 0; width: 100%; max-width: 520px; }
+    button { padding: 10px 14px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    img { width: 80px; height: 52px; object-fit: cover; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Productos</h1>
+  <p><a href="/admin">⬅ Volver</a></p>
+
+  <h2>Registrar producto</h2>
+  <form method="post" action="/admin/products">
+    <label>Nombre</label><br/>
+    <input name="name" placeholder="Ej: Audífonos" required/><br/>
+
+    <label>Precio</label><br/>
+    <input name="price" placeholder="Ej: 399.00" required/><br/>
+
+    <label>URL Imagen</label><br/>
+    <input name="imgUrl" placeholder="https://... (opcional)"/><br/>
+
+    <label>Stock</label><br/>
+    <input name="stock" type="number" value="0"/><br/>
+
+    <label>Activo</label><br/>
+    <input name="active" value="true"/><br/>
+
+    <button type="submit">Guardar</button>
+  </form>
+
+  <h2>Lista</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Activo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="p : ${products}">
+        <td th:text="${p.id}">1</td>
+        <td>
+          <img th:if="${p.imgUrl != null}" th:src="${p.imgUrl}" alt="img"/>
+          <span th:if="${p.imgUrl == null}">-</span>
+        </td>
+        <td th:text="${p.name}">Producto</td>
+        <td th:text="${p.price}">0</td>
+        <td th:text="${p.stock}">0</td>
+        <td th:text="${p.active}">true</td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
