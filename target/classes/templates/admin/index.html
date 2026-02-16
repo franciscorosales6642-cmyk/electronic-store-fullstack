@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin - Tienda</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    .cards { display: flex; gap: 12px; }
+    .card { border: 1px solid #ddd; border-radius: 10px; padding: 12px; min-width: 160px; }
+    a { text-decoration: none; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Panel Administrador</h1>
+  <div class="cards">
+    <div class="card">
+      <div><b>Productos</b></div>
+      <div th:text="${productCount}">0</div>
+      <div><a href="/admin/products">Administrar</a></div>
+    </div>
+    <div class="card">
+      <div><b>Ventas</b></div>
+      <div th:text="${saleCount}">0</div>
+      <div><a href="/admin/sales">Ver ventas</a></div>
+    </div>
+    <div class="card">
+      <div><b>API</b></div>
+      <div><a href="/api/products" target="_blank">/api/products</a></div>
+      <div><a href="/h2" target="_blank">Consola H2</a></div>
+    </div>
+  </div>
+
+  <h2>Últimas ventas</h2>
+  <p>Tip: cuando se realiza una compra, se registra en BD y también aparece en los logs del servidor como notificación al admin.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="s : ${latestSales}">
+        <td th:text="${s.id}">1</td>
+        <td th:text="${s.createdAt}">-</td>
+        <td th:text="${s.customerName}">-</td>
+        <td th:text="${s.total}">0</td>
+        <td th:text="${s.status}">CREATED</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:18px;"><a href="/admin/products">➕ Registrar producto</a> | <a href="/admin/sales">📄 Ver ventas</a></p>
+</body>
+</html>

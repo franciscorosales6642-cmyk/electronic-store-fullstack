@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin - Ventas</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+    th, td { border: 1px solid #ddd; padding: 8px; vertical-align: top; }
+    .items { font-size: 12px; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>Ventas</h1>
+  <p><a href="/admin">⬅ Volver</a></p>
+
+  <p>Tip: Si quieres ver la notificación al admin, revisa los logs del backend cuando la app móvil haga una compra.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Total</th>
+        <th>Status</th>
+        <th>Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="s : ${sales}">
+        <td th:text="${s.id}">1</td>
+        <td th:text="${s.createdAt}">-</td>
+        <td th:text="${s.customerName}">-</td>
+        <td th:text="${s.total}">0</td>
+        <td th:text="${s.status}">CREATED</td>
+        <td class="items">
+          <div th:each="it : ${s.items}">
+            <span th:text="${it.product.name}">Prod</span>
+            x<span th:text="${it.quantity}">1</span>
+            = <span th:text="${it.lineTotal}">0</span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
